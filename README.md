@@ -4,7 +4,7 @@
 [![Protocol: Noise_IK](https://img.shields.io/badge/Security-Noise__IK%200--RTT-brightgreen.svg)]()
 [![Fast-Path: Zero-Allocation](https://img.shields.io/badge/Fast--Path-1000Hz%20HID-orange.svg)]()
 
-VeloKVM Community Edition provides high-performance, low-latency cross-machine input and clipboard synchronization for Linux/Wayland environments. It combines the 1000Hz HID input architecture of [lan-mouse](https://github.com/feschber/lan-mouse) with VeloKVM's dedicated, encrypted zero-trust transport channel.
+VeloKVM Community Edition provides high-performance, low-latency cross-machine input and clipboard synchronization for Linux/Wayland environments. It combines the 1000Hz HID input architecture of [lan-mouse](https://github.com/cawa0505/lan-mouse) with VeloKVM's dedicated, encrypted zero-trust transport channel.
 
 ---
 
@@ -98,7 +98,7 @@ velokvm-clipboard-service push \
 - [x] Phase 1: 16-byte fixed `repr(C, packed)` binary HID fast-path protocol.
 - [x] Phase 2: Dedicated Noise_IK TCP 9022 asynchronous bulk channel.
 - [x] Phase 2: Linux Wayland clipboard injection bridge (`wl-clipboard`).
-- [ ] Phase 3: Direct upstream integration with `lan-mouse` `input-clipboard` crate for zero-overhead background sync.
+- [ ] Phase 3: Direct upstream integration with `lan-mouse` `input-clipboard` crate for zero-overhead background sync — **upstream crate landed**, daemon integration reported; host-side `velokvm-host` integration pending 9022 handover.
 - [ ] Phase 4: Bi-directional automatic clipboard watching & delta compression.
 
 Contributions and PRs are welcome! Please ensure all pull requests preserve the zero-allocation invariants of the fast-path protocol.
