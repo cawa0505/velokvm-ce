@@ -98,7 +98,10 @@ velokvm-clipboard-service push \
 - [x] Phase 1: 16-byte fixed `repr(C, packed)` binary HID fast-path protocol.
 - [x] Phase 2: Dedicated Noise_IK TCP 9022 asynchronous bulk channel.
 - [x] Phase 2: Linux Wayland clipboard injection bridge (`wl-clipboard`).
-- [ ] Phase 3: Direct upstream integration with `lan-mouse` `input-clipboard` crate for zero-overhead background sync — **upstream crate landed**, daemon integration reported; host-side `velokvm-host` integration pending 9022 handover.
-- [ ] Phase 4: Bi-directional automatic clipboard watching & delta compression.
+- [x] Phase 3: Direct integration with `lan-mouse` (`cawa0505/lan-mouse`) embedded clipboard sync service:
+  - Watcher + Responder background threads via `velokvm-proto`.
+  - Asynchronous Wayland selection lifecycle management.
+  - Seamless automatic cross-machine clipboard sync (<kbd>Ctrl</kbd>+<kbd>C</kbd> / <kbd>Ctrl</kbd>+<kbd>V</kbd>) verified across physical workstations.
+- [ ] Phase 4: Bi-directional delta compression and extended MIME types (image/png).
 
 Contributions and PRs are welcome! Please ensure all pull requests preserve the zero-allocation invariants of the fast-path protocol.

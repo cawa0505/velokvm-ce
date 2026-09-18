@@ -156,3 +156,46 @@ On Host A, paste immediately using standard Wayland utilities:
 wl-paste
 ```
 The exact content sent from Host B will be printed, having been transparently written to the Wayland selection by the background daemon.
+
+---
+
+## 6. Seamless Automatic Clipboard Sync via `lan-mouse`
+
+While `velokvm-clipboard-service` provides standalone transport and manual CLI push, full cross-machine desktop integration (<kbd>Ctrl</kbd>+<kbd>C</kbd> / <kbd>Ctrl</kbd>+<kbd>V</kbd>) is enabled by running our embedded `lan-mouse` fork:
+
+1. **Clone and Build the Fork**:
+   ```bash
+   git clone https://github.com/cawa0505/lan-mouse.git
+   cd lan-mouse
+   cargo build --release --bin lan-mouse
+   cp target/release/lan-mouse ~/.local/bin/lan-mouse
+   ```
+
+2. **Configure Dedicated 9022 Port & Static Keys**:
+   In `~/.config/lan-mouse/config.toml`, configure the network clients and public keys. `lan-mouse` embeds `velokvm-proto` to run an in-process responder and watcher on TCP port `9022`:
+   ```toml
+   port = 4242
+   batched_protocol = true
+
+   [[clients]]
+   hostname = "peer-station"
+   ips = ["192.168.77.185"]
+   position = "right"
+   activate_on_startup = true
+   ```
+
+3. **Stop Standalone Transport Daemon & Start lan-mouse**:
+   Since `lan-mouse` binds TCP port 9022 directly:
+   ```bash
+   # Stop standalone service to release port 9022
+   systemctl --user stop velokvm-clipboard-service
+   systemctl --user disable velokvm-clipboard-service
+
+   # Start or restart lan-mouse
+   systemctl --user restart lan-mouse
+   ```
+
+4. **Verify Seamless Sync**:
+   * Copy text anywhere on Host A (<kbd>Ctrl</kbd>+<kbd>C</kbd> or `wl-copy`).
+   * Paste immediately on Host B (<kbd>Ctrl</kbd>+<kbd>V</kbd> or `wl-paste`).
+   * No CLI interaction or manual push required.
