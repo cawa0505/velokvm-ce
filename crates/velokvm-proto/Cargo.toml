@@ -1,0 +1,17 @@
+[package]
+name = "velokvm-proto"
+version = "0.1.0"
+edition = "2021"
+authors = ["VeloKVM Authors"]
+description = "Fast-Path binary protocol and Noise_IK zero-trust channel for VeloKVM"
+
+[dependencies]
+snow = { version = "0.9", default-features = false, features = ["ring-accelerated"] }
+thiserror = "1.0"
+
+[dev-dependencies]
+criterion = { version = "0.5", features = ["html_reports"] }
+
+[[bench]]
+name = "proto_bench"
+harness = false

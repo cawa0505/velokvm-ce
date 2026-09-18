@@ -1,0 +1,7 @@
+target/
+**/*.rs.bk
+*.log
+*.key
+*.key.pub
+allow.txt
+.DS_Store

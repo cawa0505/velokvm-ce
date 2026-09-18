@@ -1,0 +1,15 @@
+[package]
+name = "velokvm-host"
+version = "0.1.0"
+edition = "2021"
+authors = ["VeloKVM Authors"]
+description = "VeloKVM host control plane — clipboard transport service (community edition backend)"
+license = "GPL-3.0-or-later"
+
+[dependencies]
+velokvm-proto = { path = "../velokvm-proto" }
+snow = { version = "0.9", default-features = false, features = ["ring-accelerated"] }
+
+[[bin]]
+name = "velokvm-clipboard-service"
+path = "src/main.rs"
